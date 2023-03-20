@@ -23,3 +23,6 @@ all support library for node js:
     + bcrypt
     + bcryptjs
 <!--  -->
+
+clone single branch
+git clone --branch <branchname> --single-branch <remote-repo-url>
