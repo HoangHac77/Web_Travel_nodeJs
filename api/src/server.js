@@ -1,18 +1,67 @@
-// library
-const express = require('express');
-require('dotenv').config();
-const app = express();
-var controller = require(__dirname + "/controllers"); //return path folder
+import express from "express";
+import bodyParser from "body-parser";
+import viewEngine from "./config/viewEngine";
+import initWebRoutes from "./routes/web.js";
+import ConNecDB from "./config/connecDB";
+import cors from "cors";
+// import path from "path";
+require("dotenv").config();
+//---------GET ROUTE-----------//
+import AuthRoutes from "./routes/authRoute.js";
+import TransportRoute from "./routes/transportRoute.js";
+import HotelRoute from "./routes/hotelRoute.js";
+import TourRoute from "./routes/tourRoute.js";
+import LocationRoute from "./routes/locationRoute.js";
+import BookingRoute from "./routes/bookingRoute.js";
+import BillRoute from "./routes/billRoute.js";
+import PayPalRoute from "./routes/PayPalRoute.js";
+import ReviewRoute from "./routes/reviewRoute.js";
+import UploadRouter from "./routes/Upload.js";
+import FavoriteRoute from "./routes/favorite.js";
+//---------GET ROUTE-----------//
 
-app.use(express.json());
-app.use(controller);
+let app = express();
 
-app.use("/public", express.static(__dirname + "/public")); //return path folder public for css, js
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-// console.log(__dirname)
+//----------USE ROUTE---------//
+AuthRoutes(app);
+TransportRoute(app);
+HotelRoute(app);
+TourRoute(app);
+LocationRoute(app);
+BookingRoute(app);
+BillRoute(app);
+PayPalRoute(app);
+ReviewRoute(app);
+UploadRouter(app);
+FavoriteRoute(app);
+//----------USE ROUTE---------//
 
-const PORT = process.env.PORT;
-app.listen(PORT, ()=>{
-  console.log(`Server running at Port:`, PORT)
-})
+viewEngine(app);
+initWebRoutes(app);
 
+ConNecDB();
+
+let port = process.env.PORT;
+
+// static images folder
+// app.use("/images", express.static("src/assets/images"));
+// app.use("/congkhai", express.static(path.join(__dirname, "/public")));
+// app.use(express.static(__dirname + "/public"));
+// app.use(express.static(__dirname + "/public"));
+// app.use("/img", express.static(path.join(__dirname, "public/images")));
+app.use("*/images", express.static("src/assets/images"));
+// app.use("*/public", express.static("public"));
+app.listen(port, () => {
+  console.log("server running on PORT", port);
+});
+
+// console.log(ip.address());
+// app.listen(port, "192.168.1.13", () => {
+//   console.log("server running");
+// });
+
+// 192.168.1.13

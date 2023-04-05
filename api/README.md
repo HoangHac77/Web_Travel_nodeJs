@@ -6,7 +6,7 @@ Teammate:   Phan Hoang Hac
 
 First run: yarn or npm install -> install all library
 
-Second, run this command on terminal: cp .example.env .env 
+Second, run this command on terminal: cp .env.example .env
 
 Next, go .env file enter your port(ex: 9090)
 
