@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       Departureday: DataTypes.DATE, // Thời gian khởi hành
       Description: DataTypes.TEXT,
       PricePerson: DataTypes.INTEGER,
+      maxGroupSize: DataTypes.INTEGER,
       images: DataTypes.JSON,
       // images: DataTypes.STRING,
       idTypesOfTransport: DataTypes.INTEGER,

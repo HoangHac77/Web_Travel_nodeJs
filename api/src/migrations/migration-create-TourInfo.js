@@ -44,6 +44,9 @@ module.exports = {
       PricePerson: {
         type: Sequelize.INTEGER,
       },
+      maxGroupSize: {
+        type: Sequelize.INTEGER,
+      },
       images: {
         // type: Sequelize.JSON,
         type: Sequelize.JSON,

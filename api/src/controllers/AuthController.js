@@ -45,20 +45,22 @@ const authController = {
     return res.status(200).send(data);
   },
   UpdateUser: async (req, res) => {
+    // Lấy param id
     const { id } = req.params;
-    // const image = req.file.path;
+    const image = req.file.path;
+    //Lấy hết data
     const data = req.body;
-    // console.log(image);
+    console.log(image);
     try {
       const FindUser = await db.User.findOne({
         where: { id: id },
       });
       if (FindUser) {
-        // FindUser.image = image;
+        FindUser.image = image;
         FindUser.name = data.name;
         FindUser.phone = data.phone;
-        FindUser.email = data.email;
-        FindUser.image = data.image;
+        // FindUser.email = data.email;
+        // FindUser.image = data.image;
         await FindUser.save();
         return res.status(200).send({ message: "Update SuccessFull !" });
       }
@@ -74,6 +76,8 @@ const authController = {
       });
       if (FindUser) {
         return res.status(200).send(FindUser);
+      }else{
+        return res.status(500).send({ message: "Can't find this user in DB"});
       }
     } catch (error) {
       return res.status(500).send(error);
@@ -93,7 +97,7 @@ const authController = {
       return res.status(500).send(error);
     }
   },
-  UpdateImage: async (req, res) => {
+  UpdateImageOneUser: async (req, res) => {
     // const { id } = req.params;
     // const image = req.file.path;
     // const data = req.body;
