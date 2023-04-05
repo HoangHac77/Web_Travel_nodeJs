@@ -1,5 +1,3 @@
-# Thi is React-Mini, I clone from github(https://github.com/safak/youtube2022/tree/react-mini) Youtube-Lama Dev
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
