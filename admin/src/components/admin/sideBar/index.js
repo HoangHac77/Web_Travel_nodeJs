@@ -10,9 +10,9 @@ export default class index extends Component {
           id="accordionSidebar"
         >
           {/* <!-- Sidebar - Brand --> */}
-          <a
+          <Link
             className="sidebar-brand d-flex align-items-center justify-content-center"
-            href="index.html"
+            to={"/admin"}
           >
             <div className="sidebar-brand-icon rotate-n-15">
               <i className="fas fa-laugh-wink"></i>
@@ -20,17 +20,17 @@ export default class index extends Component {
             <div className="sidebar-brand-text mx-3">
               SB Admin <sup>2</sup>
             </div>
-          </a>
+          </Link>
 
           {/* <!-- Divider --> */}
           <hr className="sidebar-divider my-0" />
 
           {/* <!-- Nav Item - Dashboard --> */}
           <li className="nav-item active">
-            <a className="nav-link" href="index.html">
+            <Link className="nav-link" to={"/admin"}>
               <i className="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
-            </a>
+            </Link>
           </li>
 
           {/* <!-- Divider --> */}
@@ -60,7 +60,11 @@ export default class index extends Component {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Tours Manager:</h6>
-                <Link to={"/tour"} className="collapse-item" href="buttons.html">
+                <Link
+                  to={"/admin/tour"}
+                  className="collapse-item"
+                  href="buttons.html"
+                >
                   Show All
                 </Link>
                 <a className="collapse-item" href="cards.html">
@@ -91,10 +95,14 @@ export default class index extends Component {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">User Manager:</h6>
-                <Link to={'/user'} className="collapse-item" href="utilities-color.html">
+                <Link
+                  to={"/admin/user"}
+                  className="collapse-item"
+                  href="utilities-color.html"
+                >
                   Show All
                 </Link>
-                <Link to={'/createUser'} className="collapse-item"> 
+                <Link to={"/admin/createUser"} className="collapse-item">
                   Add
                 </Link>
               </div>
@@ -122,12 +130,20 @@ export default class index extends Component {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Location Manager:</h6>
-                <Link to={'/location'} className="collapse-item" href="utilities-color.html">
+                <Link
+                  to={"/admin/location"}
+                  className="collapse-item"
+                  href="utilities-color.html"
+                >
                   Show All
                 </Link>
-                <a className="collapse-item" href="utilities-border.html">
+                <Link
+                  to={"/admin/createLocation"}
+                  className="collapse-item"
+                  href="utilities-border.html"
+                >
                   Add
-                </a>
+                </Link>
               </div>
             </div>
           </li>
@@ -153,16 +169,23 @@ export default class index extends Component {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Location Manager:</h6>
-                <Link to={'/location'} className="collapse-item" href="utilities-color.html">
+                <Link
+                  to={"/admin/hotel"}
+                  className="collapse-item"
+                  href="utilities-color.html"
+                >
                   Show All
                 </Link>
-                <a className="collapse-item" href="utilities-border.html">
+                <Link
+                  to={"/admin/createHotel"}
+                  className="collapse-item"
+                  href="utilities-border.html"
+                >
                   Add
-                </a>
+                </Link>
               </div>
             </div>
           </li>
-
 
           {/* <!-- Divider --> */}
           <hr className="sidebar-divider" />

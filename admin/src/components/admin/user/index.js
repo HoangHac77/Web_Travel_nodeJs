@@ -66,7 +66,7 @@ const Index = () => {
             <h6 className="m-0 font-weight-bold text-primary">
               DataTables Example
             </h6>
-            <Link to={"/createUser"} type="button" class="btn btn-success">Add User</Link>
+            <Link to={"/admin/createUser"} type="button" class="btn btn-success">Add User</Link>
           </div>
           <div className="card-body">
             <div className="table-responsive">
@@ -121,7 +121,7 @@ const Index = () => {
                         <td>{item.roleName}</td>
                         <td>
                           <div class="d-flex justify-content-around">
-                            <Link to={`/UpdateUser/${item.id}`} type="button" class="btn btn-success">
+                            <Link to={`/admin/UpdateUser/${item.id}`} type="button" class="btn btn-success">
                               Edit
                             </Link>
                             <button onClick={() => deleteUser(item.id)} type="button" class="btn btn-danger">

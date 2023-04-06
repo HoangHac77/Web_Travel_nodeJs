@@ -48,7 +48,7 @@ const CreateUser = () => {
 
   const CustomToastWithLink = () => (
     <div>
-      <Link to="/user">Click here back to List User</Link>
+      <Link to="/admin/user">Click here back to List User</Link>
     </div>
   );
   //   const notify = () => toast("Wow so easy!");
