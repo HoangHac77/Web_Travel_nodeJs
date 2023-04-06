@@ -8,7 +8,7 @@ const HotelService = {
 
         await db.Hotel.create({
           NameHotel: data.NameHotel,
-          images: data.images,
+          // images: data.images,
         });
         hotelData.errCode = 0;
         hotelData.errMessage = "Create hotel successfully !";

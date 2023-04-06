@@ -1,7 +1,7 @@
 import db from "../models/index";
 
 const TourService = {
-  CreateTour: (data) => {
+  CreateTour: (data, imageData) => {
     return new Promise(async (resolve, reject) => {
       try {
         const tourData = {};
@@ -9,7 +9,7 @@ const TourService = {
         // validate
         if (
           !data.NameTour == "" ||
-          !data.location == "" ||
+          !data.abbreviation == "" ||
           !data.totalTime == "" ||
           !data.PricePerson == "" ||
           !data.Description == "" ||
@@ -23,8 +23,7 @@ const TourService = {
             Departureday: data.Departureday, // Thời gian khởi hành
             Description: data.Description,
             PricePerson: data.PricePerson,
-            images: data.images,
-            idTypesOfTransport: data.idTypesOfTransport,
+            images: imageData,
             idHotel: data.idHotel,
             idLocation: data.idLocation,
           });
@@ -60,8 +59,7 @@ const TourService = {
           ],
           where: { id: idTour.id },
           include: [
-            { model: db.TypeOfTransport, attributes: ["NameHotel"] },
-            { model: db.Hotel, attributes: ["nameTransport"] },
+            { model: db.Hotel, attributes: ["NameHotel"] },
           ],
           raw: true,
           nest: true,
@@ -83,7 +81,6 @@ const TourService = {
       try {
         let allHotel = db.TourInfo.findAll({
           include: [
-            { model: db.TypeOfTransport, attributes: ["nameTransport"] },
             { model: db.Hotel, attributes: ["NameHotel"] },
             {
               model: db.Location,

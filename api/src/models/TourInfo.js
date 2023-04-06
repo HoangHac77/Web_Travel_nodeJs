@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      TourInfo.belongsTo(models.TypeOfTransport, {
-        foreignKey: "idTypesOfTransport",
-      });
+      // TourInfo.belongsTo(models.TypeOfTransport, {
+      //   foreignKey: "idTypesOfTransport",
+      // });
       // TourInfo.belongsTo(models.Recommend, { foreignKey: "idRecommend" });
       TourInfo.hasMany(models.Booking, { foreignKey: "idTourInfo" });
       TourInfo.belongsTo(models.Hotel, { foreignKey: "idHotel" });
@@ -31,8 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       PricePerson: DataTypes.INTEGER,
       maxGroupSize: DataTypes.INTEGER,
       images: DataTypes.JSON,
-      // images: DataTypes.STRING,
-      idTypesOfTransport: DataTypes.INTEGER,
+      // images: DataTypes.STRING
       idHotel: DataTypes.INTEGER,
       idLocation: DataTypes.INTEGER,
       // idReview: DataTypes.INTEGER,

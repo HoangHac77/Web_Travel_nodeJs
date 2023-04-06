@@ -22,7 +22,7 @@ let TourRoute = (app) => {
     );
   // .post("/ReviewTour/:id/:idUser", TourController.Reviewer);
 
-  return app.use("/tour", router);
+  return app.use("/server/tour", router);
 };
 
 module.exports = TourRoute;

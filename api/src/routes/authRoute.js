@@ -19,6 +19,7 @@ let AuthRoutes = (app) => {
     .get("/GetOne/:id", authController.OneUser)
     .delete("/Delete/:id", authController.DeleteUser)
     .post("/Update/:id", UploadController.upload, authController.UpdateUser)
+    .post("/UpdateWithoutImg/:id", authController.UpdateUserWithoutImg)
     .post(
       "/UpdateImage/:id",
       UploadController.upload,
@@ -26,7 +27,7 @@ let AuthRoutes = (app) => {
     )
     .post("/UpdateReviewUser/:id", authController.UpdateReviewUser);
 
-  return app.use("/auth", router);
+  return app.use("/server/auth", router);
 };
 
 module.exports = AuthRoutes;

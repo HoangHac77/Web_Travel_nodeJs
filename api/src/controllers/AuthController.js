@@ -68,6 +68,31 @@ const authController = {
       return res.status(500).send(error);
     }
   },
+  UpdateUserWithoutImg: async (req, res) => {
+    // Lấy param id
+    const { id } = req.params;
+    // const image = req.file.path;
+    //Lấy hết data
+    const data = req.body;
+    // console.log(image);
+    try {
+      const FindUser = await db.User.findOne({
+        where: { id: id },
+      });
+      if (FindUser) {
+        // FindUser.image = image;
+        FindUser.name = data.name;
+        FindUser.phone = data.phone;
+        FindUser.roleName = data.roleName;
+        // FindUser.email = data.email;
+        // FindUser.image = data.image;
+        await FindUser.save();
+        return res.status(200).send({ message: "Update SuccessFull !" });
+      }
+    } catch (error) {
+      return res.status(500).send({ message: "Update Failed !" });
+    }
+  },
   OneUser: async (req, res) => {
     try {
       const { id } = req.params;
@@ -91,10 +116,10 @@ const authController = {
       });
       if (FindUser) {
         FindUser.destroy();
-        return res.status(200).json({ msg: "Delete Success !" });
+        return res.status(200).json({ message: "Delete User SuccessFull !" });
       }
     } catch (error) {
-      return res.status(500).send(error);
+      return res.status(500).send({ message: "Delete User Failed !" });
     }
   },
   UpdateImageOneUser: async (req, res) => {

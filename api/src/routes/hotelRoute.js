@@ -10,7 +10,9 @@ let HotelRoute = (app) => {
   router
     .post("/Create", UploadController.uploads, HotelController.CreateHotel)
     .get("/GetAll", HotelController.GetAllHotel)
-    .get("/GetOne/:id", HotelController.GetOneHotel);
+    .put("/update/:id", HotelController.UpdateHotel)
+    .get("/GetOne/:id", HotelController.GetOneHotel)
+    .delete("/deleteH/:id", HotelController.DeleteHotel);
   // .post("/GetAll", authController.signin)
   // .get(
   //   "/",
@@ -19,7 +21,7 @@ let HotelRoute = (app) => {
   // )
   // .post("/LogOut", authController.Logout);
 
-  return app.use("/hotel", router);
+  return app.use("/server/hotel", router);
 };
 
 module.exports = HotelRoute;

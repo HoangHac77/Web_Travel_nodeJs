@@ -5,13 +5,13 @@ import TourService from "../services/TourService.js";
 const TourController = {
   CreateTour: async (req, res) => {
     let data = req.body;
-    // let filenames = req.files.map(function (file) {
-    //   return file.path; // or file.originalname
-    // });
+    let filenames = req.files.map(function (file) {
+      return file.path; // or file.originalname
+    });
     // console.log(filenames);
     // let imageData = JSON.stringify(filenames);
-    // console.log(typeof imageData);
-    let tourData = await TourService.CreateTour(data);
+    // console.log(filenames);
+    let tourData = await TourService.CreateTour(data, filenames);
     return res.status(200).json({
       errCode: tourData.errCode,
       message: tourData.errMessage,
@@ -35,7 +35,6 @@ const TourController = {
         ],
         where: { id: id },
         include: [
-          { model: db.TypeOfTransport, attributes: ["nameTransport"] },
           { model: db.Hotel, attributes: ["NameHotel"] },
           {
             model: db.Location,
@@ -92,7 +91,6 @@ const TourController = {
     try {
       const findOneTour = await db.TourInfo.findAll({
         include: [
-          { model: db.TypeOfTransport, attributes: ["nameTransport"] },
           { model: db.Hotel, attributes: ["NameHotel"] },
           {
             model: db.Location,
