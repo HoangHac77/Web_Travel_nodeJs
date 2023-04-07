@@ -1,29 +1,31 @@
 import db from "../models/index";
 
 const TourService = {
-  CreateTour: (data, imageData) => {
+  CreateTour: (data) => {
     return new Promise(async (resolve, reject) => {
       try {
         const tourData = {};
 
         // validate
         if (
-          !data.NameTour == "" ||
-          !data.abbreviation == "" ||
-          !data.totalTime == "" ||
-          !data.PricePerson == "" ||
-          !data.Description == "" ||
-          !data.Departureday == "" ||
-          data.PricePerson == ""
+          data.NameTour !== "" &&
+          data.abbreviation !== "" &&
+          data.totalTime !== "" &&
+          data.PricePerson !== "" &&
+          data.Description !== "" &&
+          data.idTypesOfTransport != undefined &&
+          data.idHotel != undefined &&
+          data.idLocation != undefined
         ) {
           let Tour = await db.TourInfo.create({
             NameTour: data.NameTour,
             abbreviation: data.abbreviation, // Viết tắt
             totalTime: data.totalTime, // Tổng thời gian
-            Departureday: data.Departureday, // Thời gian khởi hành
+            // Departureday: data.Departureday, // Thời gian khởi hành
             Description: data.Description,
             PricePerson: data.PricePerson,
-            images: imageData,
+            images: data.images,
+            idTypesOfTransport: data.idTypesOfTransport,
             idHotel: data.idHotel,
             idLocation: data.idLocation,
           });
@@ -60,6 +62,7 @@ const TourService = {
           where: { id: idTour.id },
           include: [
             { model: db.Hotel, attributes: ["NameHotel"] },
+            { model: db.TypeOfTransport, attributes: ["nameTransport"] },
           ],
           raw: true,
           nest: true,
@@ -81,6 +84,7 @@ const TourService = {
       try {
         let allHotel = db.TourInfo.findAll({
           include: [
+            { model: db.TypeOfTransport, attributes: ["nameTransport"] },
             { model: db.Hotel, attributes: ["NameHotel"] },
             {
               model: db.Location,

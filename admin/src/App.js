@@ -10,9 +10,9 @@ export default class App extends Component {
     return (
       <Router>
         <Routes>
-          <Route path="/" exact element={<AdminPages.MasterPageAdmin />}>
-            <Route path="" element={<AdminPages.AdminDashBoard />} />
+          <Route path="/admin" exact element={<AdminPages.MasterPageAdmin />}>
             <Route path="/admin" element={<AdminPages.AdminDashBoard />} />
+            {/* <Route path="/admin" element={<AdminPages.AdminDashBoard />} /> */}
             {/* <Route path="LoginAdmin" element={<AdminPages.LoginAdmin />} />
             <Route path="RegisterAdmin" element={<AdminPages.RegisterAdmin />} /> */}
             <Route

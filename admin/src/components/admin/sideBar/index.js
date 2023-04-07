@@ -67,9 +67,9 @@ export default class index extends Component {
                 >
                   Show All
                 </Link>
-                <a className="collapse-item" href="cards.html">
+                <Link className="collapse-item" to={"/admin/createTour"}>
                   Add
-                </a>
+                </Link>
               </div>
             </div>
           </li>

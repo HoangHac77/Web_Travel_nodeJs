@@ -23,7 +23,7 @@ let TransportRoute = (app) => {
   // )
   // .post("/LogOut", authController.Logout);
 
-  return app.use("/transport", router);
+  return app.use("/server/transport", router);
 };
 
 module.exports = TransportRoute;

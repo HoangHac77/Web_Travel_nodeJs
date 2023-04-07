@@ -51,6 +51,7 @@ let uploadSingle = multer({
 let uploadMultipleFiles = multer({
   storage: storage,
   fileFilter: imageFilter,
+  limits: { fileSize: maxSize },
 }).array("MultipleFiles", 10);
 
 let UploadRoute = (app) => {
@@ -63,7 +64,7 @@ let UploadRoute = (app) => {
           // res.send(err);
           return res.status(404).json({ msg: "File to large upload failed" });
         } else if (err) {
-          res.send(err);
+          return res.send({msg: 'Error file type , Must be (jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)'});
         } else {
           next();
         }
@@ -77,14 +78,11 @@ let UploadRoute = (app) => {
     "/upload-multiple",
     (req, res, next) => {
       uploadMultipleFiles(req, res, (err) => {
-        if (
-          err instanceof multer.MulterError &&
-          err.code === "LIMIT_UNEXPECTED_FILE"
-        ) {
+        if (err instanceof multer.MulterError) {
           // handle multer file limit error here
-          res.send("LIMIT_UNEXPECTED_FILE");
+          return res.status(404).json(err);
         } else if (err) {
-          res.send(err);
+          return res.status(404).send({msg: 'Error file type , Must be (jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)', errorCode: 1 });
         } else {
           // make sure to call next() if all was well
           next();
@@ -94,7 +92,7 @@ let UploadRoute = (app) => {
     handleUpdLoadMultipleFile
   );
 
-  return app.use("/Upload", router);
+  return app.use("/server/Upload", router);
 };
 
 module.exports = UploadRoute;

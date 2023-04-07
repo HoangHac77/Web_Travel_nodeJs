@@ -10,7 +10,7 @@ const Index = () => {
 
   const [listTour, setListTour] = useState([]);
 
-  console.log(listTour);
+  // console.log(listTour);
 
   //su dung window (su dung jquery) fix loi khi su dung table cua Datatable.net
   const displayAllTour = async () => {
@@ -21,10 +21,10 @@ const Index = () => {
     });
   };
 
-  const deleteUser = async (id) => {
+  const deleteTour = async (id) => {
     // console.log(id);
-    axios.delete(`${ExportURL.URL_API}/auth/Delete/${id}`).then((res) => {
-      toast.success(res.data.message, {
+    axios.delete(`${ExportURL.URL_API}/tour/DeleteTour/${id}`).then((res) => {
+      toast.success(res.data.msg, {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 2000,
       });
@@ -69,7 +69,7 @@ const Index = () => {
             <h6 className="m-0 font-weight-bold text-primary">
               DataTables Example
             </h6>
-            <Link to={"/admin/createTour"} type="button" class="btn btn-success">
+            <Link to={"/admin/createTour"} type="button" className="btn btn-success">
               Add Tour
             </Link>
           </div>
@@ -79,7 +79,7 @@ const Index = () => {
                 className="table table-bordered"
                 id="dataTable"
                 width="100%"
-                cellspacing="0"
+                cellSpacing="0"
               >
                 <thead>
                   <tr>
@@ -131,7 +131,7 @@ const Index = () => {
                             width={75}
                             height={75}
                             alt="ImgUser"
-                            class="img-thumbnail"
+                            className="img-thumbnail"
                           />
                           <img
                             src={
@@ -142,7 +142,7 @@ const Index = () => {
                             width={75}
                             height={75}
                             alt="ImgUser"
-                            class="img-thumbnail"
+                            className="img-thumbnail"
                           />
                           <img
                             src={
@@ -153,7 +153,7 @@ const Index = () => {
                             width={75}
                             height={75}
                             alt="ImgUser"
-                            class="img-thumbnail"
+                            className="img-thumbnail"
                           />
                         </td>
                         <td>{item.Hotel.NameHotel}</td>
@@ -168,20 +168,20 @@ const Index = () => {
                             "MMMM Do YYYY, h:mm:ss a"
                           )}
                         </td>
-                        {/* <td><img src={`${ExportURL.BASE_URL}/${item.image}`} width={75} height={75} alt="ImgUser" class="img-thumbnail"/></td> */}
+                        {/* <td><img src={`${ExportURL.BASE_URL}/${item.image}`} width={75} height={75} alt="ImgUser" className="img-thumbnail"/></td> */}
                         <td>
-                          <div class="d-flex justify-content-around">
+                          <div className="d-flex justify-content-around">
                             <Link
-                              to={`/UpdateUser/${item.id}`}
+                              to={`/admin/updateTour/${item.id}`}
                               type="button"
-                              class="btn btn-success mr-2"
+                              className="btn btn-success mr-2"
                             >
                               Edit
                             </Link>
                             <button
-                              onClick={() => deleteUser(item.id)}
+                              onClick={() => deleteTour(item.id)}
                               type="button"
-                              class="btn btn-danger"
+                              className="btn btn-danger"
                             >
                               Delete
                             </button>
