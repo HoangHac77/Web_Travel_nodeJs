@@ -1,12 +1,10 @@
-import HomePage from "./pages/home/index"
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePages from "./pages";
+import AuthPage from "./pages/auth";
 
-function App() {
+const App = () => {
   return (
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> dddfdc42 (XDWATDL-10 XDWATDL-22 page user)
     <Router>
       <Routes>
         <Route path="/" exact element={<HomePages.MasterLayout />}>
@@ -20,8 +18,7 @@ function App() {
         <Route path="/signup" exact element={<AuthPage.Register />} />
       </Routes>
     </Router>
-
   );
-}
+};
 
 export default App;

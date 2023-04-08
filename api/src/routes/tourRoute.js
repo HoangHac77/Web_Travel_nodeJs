@@ -10,11 +10,13 @@ let TourRoute = (app) => {
   router
     .post("/Create", UploadController.uploads, TourController.CreateTour)
     .get("/GetAll", TourController.GetAllTour)
+    .get("/GetAllPop", TourController.GetAllWithPopular)
+    .get("/GetAllNew", TourController.GetAllWithNew)
     // .post("/GetIdTour", TourController.GetIdTour)
     .get("/GetIdTour2/:id", TourController.GetIdTour2)
     .post("/UpdateTour/:id", TourController.UpdateOneTour)
     .delete("/DeleteTour/:id", TourController.DeleteTour)
-    .get("/FindWithCon", TourController.QueryParams)
+    .get("/Query", TourController.QueryParams)
     .post(
       "/UpdateImageTour/:id",
       UploadController.uploads,

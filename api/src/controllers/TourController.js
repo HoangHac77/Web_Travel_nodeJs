@@ -44,6 +44,7 @@ const TourController = {
             attributes: ["id", "country", "descLocation", "placeName"],
           },
         ],
+
         raw: true,
         nest: true,
       });
@@ -56,6 +57,14 @@ const TourController = {
     let data = await TourService.GetAll();
     return res.status(200).send(data);
   },
+  GetAllWithPopular: async (req, res) => {
+    let data = await TourService.GetAllWithPopular();
+    return res.status(200).send(data);
+  },
+  GetAllWithNew: async (req, res) => {
+    let data = await TourService.GetAllWithNew();
+    return res.status(200).send(data);
+  },
   UpdateOneTour: async (req, res) => {
     const { id } = req.params;
     try {
@@ -63,7 +72,8 @@ const TourController = {
         where: { id: id },
       });
       if (
-        findOneTour && (req.body.NameTour !== "") &&
+        findOneTour &&
+        req.body.NameTour !== "" &&
         req.body.abbreviation !== "" &&
         req.body.totalTime !== "" &&
         req.body.PricePerson !== undefined &&
@@ -108,12 +118,13 @@ const TourController = {
     const query = req.query;
     try {
       const findOneTour = await db.TourInfo.findAll({
+        where: query,
         include: [
+          { model: db.TypeOfTransport, attributes: ["nameTransport"] },
           { model: db.Hotel, attributes: ["NameHotel"] },
           {
             model: db.Location,
             attributes: ["country", "placeName", "descLocation"],
-            where: query,
           },
         ],
         raw: true,

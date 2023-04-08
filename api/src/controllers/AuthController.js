@@ -16,6 +16,7 @@ const authController = {
   signIn: async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
+
     let userData = await AuthService.SignInUser(email, password);
     // console.log(typeof userData);
     return res.status(200).json({
@@ -101,8 +102,8 @@ const authController = {
       });
       if (FindUser) {
         return res.status(200).send(FindUser);
-      }else{
-        return res.status(500).send({ message: "Can't find this user in DB"});
+      } else {
+        return res.status(500).send({ message: "Can't find this user in DB" });
       }
     } catch (error) {
       return res.status(500).send(error);

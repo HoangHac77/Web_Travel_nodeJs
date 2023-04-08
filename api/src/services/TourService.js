@@ -100,46 +100,52 @@ const TourService = {
       }
     });
   },
-  //////////////////Find 1 by id Tour
-  // FindTour: (getInfo) => {
-  //   return new Promise(async (resolve, rejct) => {
-  //     let RData = {};
-  //     let data = await db.TourInfo.findOne({
-  //       attributes: [
-  //         "id",
-  //         "NameTour",
-  //         "abbreviation",
-  //         "totalTime",
-  //         "Departureday",
-  //         "Description",
-  //         "PricePerson",
-  //         "images",
-  //       ],
-  //       where: { id: getInfo.id },
-  //       include: [
-  //         { model: db.TypeOfTransport, attributes: ["nameTransport"] },
-  //         { model: db.Hotel, attributes: ["NameHotel"] },
-  //       ],
-  //       raw: true,
-  //       nest: true,
-  //     });
-  //     if (
-  //       data == null ||
-  //       data == "" ||
-  //       data == undefined ||
-  //       data == {} ||
-  //       data == []
-  //     ) {
-  //       RData.errCode = 1;
-  //       RData.errMessage = "Khong ton tai tour nay!!";
-  //     } else {
-  //       RData.errCode = 0;
-  //       RData.errMessage = data;
-  //     }
-
-  //     resolve(RData);
-  //   });
-  // },
+  GetAllWithPopular: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let allHotel = db.TourInfo.findAll({
+          include: [
+            { model: db.TypeOfTransport, attributes: ["nameTransport"] },
+            { model: db.Hotel, attributes: ["NameHotel"] },
+            {
+              model: db.Location,
+              attributes: ["country", "placeName", "descLocation"],
+            },
+          ],
+          order: [["updatedAt", "DESC"]],
+          limit : 4,
+          raw: true,
+          nest: true,
+        });
+        resolve(allHotel);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  },
+  GetAllWithNew: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let allHotel = db.TourInfo.findAll({
+          include: [
+            { model: db.TypeOfTransport, attributes: ["nameTransport"] },
+            { model: db.Hotel, attributes: ["NameHotel"] },
+            {
+              model: db.Location,
+              attributes: ["country", "placeName", "descLocation"],
+            },
+          ],
+          order: [["createdAt", "DESC"]],
+          limit : 4,
+          raw: true,
+          nest: true,
+        });
+        resolve(allHotel);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  },
 };
 
 export default TourService;

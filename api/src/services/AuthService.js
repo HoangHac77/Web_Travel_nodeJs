@@ -25,23 +25,27 @@ const AuthService = {
         let CheckkUserEmail = await db.User.findOne({
           where: { email: email },
         });
-        if (!CheckkUserEmail) {
-          const salt = bcrypt.genSaltSync(10);
-          const hash = bcrypt.hashSync(data.password, salt);
-          await db.User.create({
-            email: data.email,
-            password: hash,
-            name: data.name,
-            phone: data.phone,
-            roleName: data.roleName,
-          });
-          userData.errCode = 0;
-          userData.errMessage = "Register successfully !";
+        if (email !== "" && data.name !== undefined && data.password !== "") {
+          if (!CheckkUserEmail) {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(data.password, salt);
+            await db.User.create({
+              email: data.email,
+              password: hash,
+              name: data.name,
+              phone: data.phone,
+              roleName: data.roleName,
+            });
+            userData.errCode = 0;
+            userData.errMessage = "Register successfully !";
+          } else {
+            userData.errCode = 1;
+            userData.errMessage = "Email already exists in the system !";
+          }
         } else {
-          userData.errCode = 1;
-          userData.errMessage = "Email already exists in the system !";
+          userData.errCode = 2;
+          userData.errMessage = "Some field(s) empty !";
         }
-
         resolve(userData);
       } catch (e) {
         reject(e);
@@ -57,7 +61,8 @@ const AuthService = {
         // let UserEmail = await db.User.findOne({
         //   where: { email: email },
         // });
-        if (email && password) {
+        // console.log(typeof email)
+        if (email !== undefined && password !== undefined) {
           let user = await db.User.findOne({
             attributes: ["id", "email", "password", "name", "roleName"],
             where: { email: email },
@@ -94,7 +99,7 @@ const AuthService = {
           }
         } else {
           userData.errCode = 3;
-          userData.errMessage = "Field is empty !";
+          userData.errMessage = "Field(s) is empty !";
         }
         resolve(userData);
       } catch (e) {
