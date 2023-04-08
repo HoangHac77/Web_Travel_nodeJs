@@ -2,7 +2,11 @@ import HomePage from "./pages/home/index"
 
 function App() {
   return (
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> dddfdc42 (XDWATDL-10 XDWATDL-22 page user)
     <Router>
       <Routes>
         <Route path="/" exact element={<HomePages.MasterLayout />}>
