@@ -71,7 +71,7 @@ const Popular = () => {
             return (
               <div className="col">
                 <div className="card border hover-zoom">
-                  <Link to={`/details/${val.id}`}>
+                  <Link to={`details/${val.id}`}>
                     <img
                       src={
                         pic === null

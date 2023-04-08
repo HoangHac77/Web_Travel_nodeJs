@@ -7,22 +7,31 @@ const BookingController = {
   CreateBooking: async (req, res) => {
     let data = req.body;
     try {
-      if (!data.Adult == 0) {
+      if (
+        data.Adult !== undefined &&
+        data.Children !== undefined &&
+        data.AdultTotalCost !== undefined &&
+        data.ChildrenTotalCost !== undefined &&
+        data.totalCost !== undefined &&
+        data.totalGuest !== undefined &&
+        data.idUser !== undefined &&
+        data.idTourInfo !== undefined
+      ) {
         const booking = await db.Booking.create({
           Adult: data.Adult,
           Children: data.Children,
           AdultTotalCost: data.AdultTotalCost,
           ChildrenTotalCost: data.ChildrenTotalCost,
-          StartedDay: data.StartedDay,
+          // StartedDay: data.StartedDay,
           totalCost: data.totalCost,
           totalGuest: data.totalGuest,
           Status: data.Status,
           idUser: data.idUser,
           idTourInfo: data.idTourInfo,
         });
-        return res.status(200).send(booking);
+        return res.status(200).send({ msg: "Create booking successFull !" });
       } else {
-        return res.status(400).send({ msg: "Required More than 1 Adult !" });
+        return res.status(400).send({ msg: "Some Field Empty !" });
       }
     } catch (error) {
       return res.status(400).send(error);

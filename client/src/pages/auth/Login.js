@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import ExportURL from "../../hooks/config";
@@ -14,9 +14,10 @@ const Login = () => {
     password: undefined,
   });
 
-  // console.log(credentials);
-
+  
+  const location = useLocation();
   const Navigate = useNavigate();
+  
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -31,7 +32,6 @@ const Login = () => {
         `${ExportURL.URL_API}/auth/SignIn`,
         credentials
       );
-      // console.log(res.data.user)
       if (res.data.errCode === 3) {
         toast.error(res.data.message, {
           position: toast.POSITION.TOP_LEFT,
@@ -52,7 +52,7 @@ const Login = () => {
         dispatch({ type: "LOGIN_FAILURE", payload: res.data });
       } else if (res.data.errCode === 0) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.user });
-        Navigate("/");
+        Navigate(location.state !== null ? location.state.previousPath : '/');
       }
     } catch (err) {
       console.log(err);

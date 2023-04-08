@@ -66,7 +66,13 @@ const Index = () => {
             <h6 className="m-0 font-weight-bold text-primary">
               DataTables Example
             </h6>
-            <Link to={"/admin/createUser"} type="button" class="btn btn-success">Add User</Link>
+            <Link
+              to={"/admin/createUser"}
+              type="button"
+              class="btn btn-success"
+            >
+              Add User
+            </Link>
           </div>
           <div className="card-body">
             <div className="table-responsive">
@@ -117,17 +123,35 @@ const Index = () => {
                         <td>{item.email}</td>
                         <td>{item.name}</td>
                         <td>{item.phone}</td>
-                        <td><img src={`${ExportURL.BASE_URL}/${item.image}`} width={75} height={75} alt="ImgUser" class="img-thumbnail"/></td>
+                        <td>
+                          <img
+                            src={`${ExportURL.BASE_URL}/${item.image}`}
+                            width={75}
+                            height={75}
+                            alt="ImgUser"
+                            class="img-thumbnail"
+                          />
+                        </td>
                         <td>{item.roleName}</td>
                         <td>
-                          <div class="d-flex justify-content-around">
-                            <Link to={`/admin/UpdateUser/${item.id}`} type="button" class="btn btn-success">
-                              Edit
-                            </Link>
-                            <button onClick={() => deleteUser(item.id)} type="button" class="btn btn-danger">
-                              Delete
-                            </button>
-                          </div>
+                          {item.email !== "hoanghac@gmail.com" && (
+                            <div class="d-flex justify-content-around">
+                              <Link
+                                to={`/admin/UpdateUser/${item.id}`}
+                                type="button"
+                                class="btn btn-success"
+                              >
+                                Edit
+                              </Link>
+                              <button
+                                onClick={() => deleteUser(item.id)}
+                                type="button"
+                                class="btn btn-danger"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     );

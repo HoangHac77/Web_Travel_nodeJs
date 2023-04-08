@@ -26,7 +26,7 @@ let HotelRoute = (app) => {
   // )
   // .post("/LogOut", authController.Logout);
 
-  return app.use("/booking", router);
+  return app.use("/server/booking", router);
 };
 
 module.exports = HotelRoute;

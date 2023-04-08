@@ -13,6 +13,8 @@ const App = () => {
           <Route path="about" element={<HomePages.About />} />
           <Route path="tours" element={<HomePages.Tours />} />
           <Route path="tours/details/:id" element={<HomePages.DetailTour />} />
+          <Route path="details/:id" element={<HomePages.DetailTour />} /> 
+          <Route path="bookingSuccess" element={<HomePages.BookingPage />} />
         </Route>
         <Route path="/login" exact element={<AuthPage.Login />} />
         <Route path="/signup" exact element={<AuthPage.Register />} />

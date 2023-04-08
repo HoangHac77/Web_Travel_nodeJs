@@ -1,70 +1,148 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import React, { Component, useContext } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthContext } from "./contexts/AuthContext";
 import AdminPages from "./pages/admin.js";
 import AuthPage from "./pages/auth.js";
 import AdminComponents from "./components/admin/index";
+
+const ProtectedRouteAdmin = ({ children }) => {
+  const { user } = useContext(AuthContext);
+
+  if (!user) {
+    return <Navigate to={"/admin/login"} />;
+  } else if (user.roleName !== "Admin") {
+    return <Navigate to={"/NotAllows"} />;
+  }
+
+  return children;
+};
 
 export default class App extends Component {
   render() {
     return (
       <Router>
         <Routes>
-          <Route path="/admin" exact element={<AdminPages.MasterPageAdmin />}>
-            <Route path="/admin" element={<AdminPages.AdminDashBoard />} />
-            {/* <Route path="/admin" element={<AdminPages.AdminDashBoard />} /> */}
-            {/* <Route path="LoginAdmin" element={<AdminPages.LoginAdmin />} />
-            <Route path="RegisterAdmin" element={<AdminPages.RegisterAdmin />} /> */}
+          <Route
+            path="/admin"
+            exact
+            element={
+              <ProtectedRouteAdmin>
+                <AdminPages.MasterPageAdmin />
+              </ProtectedRouteAdmin>
+            }
+          >
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminPages.AdminDashBoard />
+                </ProtectedRouteAdmin>
+              }
+            />
+
             <Route
               path="/admin/tour"
-              element={<AdminComponents.ToursAdmin />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.ToursAdmin />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/createTour"
-              element={<AdminComponents.CreateTour />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.CreateTour />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/updateTour/:id"
-              element={<AdminComponents.UpdateTours />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.UpdateTours />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/location"
-              element={<AdminComponents.LocationAdmin />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.LocationAdmin />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/createLocation"
-              element={<AdminComponents.CreateLocation />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.CreateLocation />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/EditLocation/:id"
-              element={<AdminComponents.EditLocation />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.EditLocation />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/user"
-              element={<AdminComponents.UsersAdmin />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.UsersAdmin />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/createUser"
-              element={<AdminComponents.CreateUserAdmin />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.CreateUserAdmin />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/UpdateUser/:id"
-              element={<AdminComponents.UpdateUser />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.UpdateUser />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/hotel"
-              element={<AdminComponents.HotelAdmin />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.HotelAdmin />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/createHotel"
-              element={<AdminComponents.CreateHotel />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.CreateHotel />
+                </ProtectedRouteAdmin>
+              }
             />
             <Route
               path="/admin/updateHotel/:id"
-              element={<AdminComponents.UpdateHotel />}
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.UpdateHotel />
+                </ProtectedRouteAdmin>
+              }
             />
           </Route>
-
+          <Route path="/*" exact element={<AdminPages.ErrorPage />} />
           <Route path="/admin/login" exact element={<AuthPage.LoginPage />} />
           <Route path="/admin/signup" exact element={<AuthPage.SignUpPage />} />
         </Routes>

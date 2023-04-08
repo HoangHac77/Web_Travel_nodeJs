@@ -4,6 +4,7 @@ import Contact from "./contact/Contact";
 import About from "./about/About";
 import Tours from "./tours/Tours";
 import DetailTour from "./details/Details";
+import BookingPage from "./bookingSuccess/Booking"
 
 const HomePages ={
   MasterLayout,
@@ -11,7 +12,8 @@ const HomePages ={
   Contact,
   About,
   Tours,
-  DetailTour
+  DetailTour,
+  BookingPage
 }
 
 export default HomePages;

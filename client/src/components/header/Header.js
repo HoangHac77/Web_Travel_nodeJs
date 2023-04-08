@@ -34,7 +34,7 @@ const Header = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <i className="fas fa-bars"></i>
+            <i className="fas fa-bars text-white"></i>
           </button>
 
           {/* <!-- Collapsible wrapper --> */}
@@ -131,7 +131,7 @@ const Header = () => {
             {user && (
               <div className="dropdown">
                 <a
-                  className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                  className="dropdown-toggle d-flex align-items-center hidden-arrow text-light"
                   href="/#"
                   id="navbarDropdownMenuAvatar"
                   role="button"
