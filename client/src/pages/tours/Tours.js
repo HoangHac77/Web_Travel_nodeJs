@@ -10,6 +10,7 @@ const Tours = () => {
   const [data, setData] = useState([]);
   const [search, searchTour] = useState("");
   const [check, checkTransport] = useState("");
+  const [checkBox, SetCheckBox] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const toursPerPage = 5;
   const pagesVisited = pageNumber * toursPerPage;
