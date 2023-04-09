@@ -4,6 +4,7 @@ import ExportURL from "../../hooks/config";
 import { useParams, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Details = () => {
   // eslint-disable-next-line
@@ -41,7 +42,7 @@ const Details = () => {
       AdultTotalCost: moneyA,
       ChildrenTotalCost: moneyC,
       totalCost: totalCost,
-      totalGuest: numberA + numberC,
+      totalGuest: parseInt(numberA) + parseInt(numberC),
       idUser: user === null ? undefined : user.id,
       idTourInfo: id,
     };
@@ -56,7 +57,11 @@ const Details = () => {
           `${ExportURL.URL_API}/booking/Create`,
           newBooking
         );
-        console.log(res);
+        console.log(res.data)
+        toast.success(res.data.msg, {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 2000,
+        });
       } catch (error) {
         console.log(error);
       }
@@ -726,6 +731,7 @@ const Details = () => {
             </div>
           </div>
         </div>
+        <ToastContainer/>
         {/* Booking Tour */}
       </div>
     </>

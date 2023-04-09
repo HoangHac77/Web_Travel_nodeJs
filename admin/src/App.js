@@ -141,6 +141,22 @@ export default class App extends Component {
                 </ProtectedRouteAdmin>
               }
             />
+             <Route
+              path="/admin/bills"
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.BillAdmin />
+                </ProtectedRouteAdmin>
+              }
+            />
+             <Route
+              path="/admin/bills/:id"
+              element={
+                <ProtectedRouteAdmin>
+                  <AdminComponents.EditBill />
+                </ProtectedRouteAdmin>
+              }
+            />
           </Route>
           <Route path="/*" exact element={<AdminPages.ErrorPage />} />
           <Route path="/admin/login" exact element={<AuthPage.LoginPage />} />

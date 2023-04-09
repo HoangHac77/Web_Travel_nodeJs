@@ -25,11 +25,11 @@ const BookingController = {
           // StartedDay: data.StartedDay,
           totalCost: data.totalCost,
           totalGuest: data.totalGuest,
-          Status: data.Status,
+          Status: "NotConfirm",
           idUser: data.idUser,
           idTourInfo: data.idTourInfo,
         });
-        return res.status(200).send({ msg: "Create booking successFull !" });
+        return res.status(200).send({ msg: "Booking successFull !" });
       } else {
         return res.status(400).send({ msg: "Some Field Empty !" });
       }
@@ -86,15 +86,21 @@ const BookingController = {
       return res.status(500).json(error);
     }
   },
-  GetBookingByUser: async (req, res) => {
+  GetBookingById: async (req, res) => {
     try {
       const { id } = req.params;
-      const FindAll = await db.Booking.findAll({
-        where: { idUser: id },
+      const FindAll = await db.Booking.findOne({
+        where: { id: id },
         include: [
           {
             model: db.TourInfo,
-            attributes: ["NameTour", "PricePerson", "totalTime", "images"],
+            attributes: [
+              "NameTour",
+              "PricePerson",
+              "abbreviation",
+              "totalTime",
+              "images",
+            ],
             include: [
               {
                 model: db.Location,
@@ -103,6 +109,10 @@ const BookingController = {
               {
                 model: db.TypeOfTransport,
                 attributes: ["nameTransport", "image"],
+              },
+              {
+                model: db.Hotel,
+                attributes: ["NameHotel", "images"],
               },
             ],
           },
@@ -117,25 +127,15 @@ const BookingController = {
   },
   DefaultPayment: async (req, res) => {
     try {
-      // const data = req.body;
-      // // console.log(data);
       const { id } = req.params;
-      // const DPayment = await db.Booking.update({
-      //   where: { id: id },
-      //   Status: data.Status,
-      //   returning: true,
-      // });
-      // // return res.status(200).json({ me: "success !" });
-      // return res.status(200).json(DPayment);
-
-      const User = await db.Booking.findOne({
+      const GetOneBooking = await db.Booking.findOne({
         where: { id: id },
       });
-      if (User) {
-        User.Status = req.body.Status;
-        await User.save();
+      if (GetOneBooking) {
+        GetOneBooking.Status = "Confirm";
+        await GetOneBooking.save();
       }
-      return res.status(200).json({ msg: "success !" });
+      return res.status(200).json({ msg: "Confirm success !" });
     } catch (error) {
       return res.status(500).json(error);
     }
@@ -144,7 +144,7 @@ const BookingController = {
     try {
       const { id } = req.params;
       const FindAll = await db.Booking.findAll({
-        where: { idUser: id, Status: ["Default", "Online"] },
+        where: { idUser: id, Status: ["Success"] },
         include: [
           {
             model: db.TourInfo,
@@ -172,7 +172,7 @@ const BookingController = {
       const FindAll = await db.Booking.findAll({
         // where: { Status: "Default" & "Online" },
         where: {
-          Status: ["Default", "Online"],
+          Status: ["Success"],
         },
         raw: true,
         nest: true,
@@ -181,10 +181,10 @@ const BookingController = {
     } catch (error) {}
   },
   DeleteBooking: async (req, res) => {
-    const { id, idUser } = req.params;
+    const { id } = req.params;
     try {
       const FindOne = await db.Booking.findOne({
-        where: { id: id, idUser: idUser },
+        where: { id: id },
       });
       if (FindOne) {
         FindOne.destroy();

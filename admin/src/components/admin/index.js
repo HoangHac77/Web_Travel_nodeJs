@@ -13,6 +13,8 @@ import CreateHotel from "./hotel/create/index"
 import UpdateHotel from "./hotel/edit/index"
 import CreateTour from "./tours/create/index"
 import UpdateTours from "./tours/edit/index"
+import BillAdmin from "./bills/index"
+import EditBill from "./bills/edit/Edit"
 
 const AdminComponent = {
     HeaderAdmin,
@@ -29,7 +31,9 @@ const AdminComponent = {
     CreateHotel,
     UpdateHotel,
     CreateTour,
-    UpdateTours
+    UpdateTours,
+    BillAdmin,
+    EditBill
 }
 
 

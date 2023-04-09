@@ -187,8 +187,41 @@ export default class index extends Component {
             </div>
           </li>
 
+          <li className="nav-item">
+            <a
+              className="nav-link collapsed"
+              href="/#"
+              data-toggle="collapse"
+              data-target="#collapseFifth"
+              aria-expanded="true"
+              aria-controls="collapseFifth"
+            >
+              <i class="fas fa-cart-plus"></i>
+              <span>Bills</span>
+            </a>
+            <div
+              id="collapseFifth"
+              className="collapse"
+              aria-labelledby="headingFourth"
+              data-parent="#accordionSidebar"
+            >
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Bill Manager:</h6>
+                <Link
+                  to={"/admin/bills"}
+                  className="collapse-item"
+                  href="utilities-color.html"
+                >
+                  Show All
+                </Link>
+              </div>
+            </div>
+          </li>
+
           {/* <!-- Divider --> */}
           <hr className="sidebar-divider" />
+
+          
 
           {/* <!-- Heading --> */}
           {/* <div className="sidebar-heading">Addons</div> */}
