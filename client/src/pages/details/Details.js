@@ -57,7 +57,7 @@ const Details = () => {
           `${ExportURL.URL_API}/booking/Create`,
           newBooking
         );
-        console.log(res.data)
+        console.log(res.data);
         toast.success(res.data.msg, {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 2000,
@@ -374,36 +374,6 @@ const Details = () => {
                         </div>
                       </div>
                     </div>
-
-                    <div className="row mb-4">
-                      <div className="col">
-                        <div className="form-outline">
-                          <input
-                            disabled
-                            type="number"
-                            id="Phone"
-                            className="form-control border"
-                          />
-                          <label className="form-label" htmlFor="Phone">
-                            Phone
-                          </label>
-                        </div>
-                      </div>
-                      <div className="col">
-                        <div className="form-outline">
-                          <input
-                            disabled
-                            type="text"
-                            id="form3Example2"
-                            className="form-control border"
-                          />
-                          <label className="form-label" htmlFor="form3Example2">
-                            Country
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
                     <div className="row mb-4">
                       <div className="col">
                         <div
@@ -731,7 +701,7 @@ const Details = () => {
             </div>
           </div>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
         {/* Booking Tour */}
       </div>
     </>
