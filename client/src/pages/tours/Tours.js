@@ -6,8 +6,10 @@ import ReactPaginate from "react-paginate";
 // import moment from "moment";
 
 const Tours = () => {
+  const [price, setPrice] = useState("");
   const [data, setData] = useState([]);
   const [search, searchTour] = useState("");
+  const [check, checkTransport] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const toursPerPage = 5;
   const pagesVisited = pageNumber * toursPerPage;
@@ -25,27 +27,59 @@ const Tours = () => {
     }, 2000);
   }, []);
 
-  const findInfo = useMemo(() => {
+  const searchAll = useMemo(() => {
+    let filteredData = [...data];
+    // console.log(filteredData);
     if (search !== "") {
-      const find = data.filter(
+      filteredData = filteredData.filter(
         (item) =>
-          Object.values(item).includes(search) ||
-          item.NameTour.toLowerCase().includes(search.toLowerCase())
+          Object.values(item).some((value) =>
+            String(value)
+              .toLowerCase()
+              .includes(search.toLowerCase())
+          ) || item.PricePerson === search * 1
       ); //Object.values(item): lấy giá trị từ object chuyển thành mảng phù hợp includes
-      return find;
-    } else {
-      return data;
     }
-  }, [data, search]);
-  const handleInputChange = (event) => {
-    searchTour(event.target.value);
+    if (price !== "") {
+      filteredData = filteredData.filter(
+        (item) =>
+          (price >= 100 && item.PricePerson >= price * 1) ||
+          (price <= 99 && item.PricePerson <= price * 1)
+      );
+    }
+    if (check.length !== 0) {
+      filteredData = filteredData.filter((item) =>
+        check.includes(item.TypeOfTransport.nameTransport)
+      );
+    }
+    return filteredData;
+  }, [data, search, price, check]);
+
+  const handleCheck = (e) => {
+    const transport = e.target.value;
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      checkTransport([...check, transport]);
+      // console.log(transport);
+    } else {
+      checkTransport(check.filter((item) => item !== transport));
+      // console.log(transport);
+    }
   };
-  const pageCount = Math.ceil(findInfo.length / toursPerPage);
+  const clearFilter = (e) => {
+    setPrice("");
+    searchTour("");
+    checkTransport([]);
+  };
+  const pageCount = Math.ceil(searchAll.length / toursPerPage);
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-  // console.log(data);
 
+  const handleInputChange = (event) => {
+    searchTour(event.target.value);
+  };
+  
   return (
     <>
       <div className="container mt-3 mb-6">
@@ -87,59 +121,84 @@ const Tours = () => {
               <div class="card-body" style={{ paddingTop: "0px" }}>
                 <div class="card-text">
                   <div class="form-outline">
-                    <label htmlFor="form1">Min</label>
+                    <label htmlFor="form1"></label>
                     <input
-                      type="number"
-                      
-                      id="form1"
-                      class="form-control border border-dark"
-                      placeholder="Type query here !"
-                    />
-                  </div>
-
-                  <div class="form-outline mt-2">
-                    <label htmlFor="form1">Max</label>
-                    <input
-                      type="number"
-                      
-                      id="form1"
-                      class="form-control border border-dark"
-                      placeholder="Type query here !"
+                      type="text"
+                      min="1"
+                      max="1000"
+                      placeholder="Enter Price "
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      // step="0.5"
                     />
                   </div>
                 </div>
               </div>
             </div>
-            {/* <div
-              className="card text-black bg-light mb-3"
-              style={{ maxWidth: "18rem" }}
-            >
-              <div className="card-header">SEARCH NAME TOUR</div>
-              <div className="form-check mt-2">
-               
-              </div>
-            </div> */}
-            {/* <div
+
+            <div
               className="card text-black bg-light mb-3"
               style={{ maxWidth: "18rem" }}
             >
               <div className="card-header">TOUR TYPE</div>
-        
+              {/* <!-- Default checkbox --> */}
+              <button className="clear-btn" onClick={clearFilter}>
+                Clear Filters
+              </button>
+              {/* <!-- Checked checkbox --> */}
               <div className="form-check m-2">
-                <label className="form-check-label">
-                  PRICE
-                  <input
-                    type="text"
-                    min="1"
-                    max="1000"
-                    placeholder="Nhập số tiền "
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    // step="0.5"
-                  />
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="Airplane"
+                  id="flexCheckChecked"
+                  onChange={handleCheck}
+                  checked={check.includes("Airplane")}
+                />
+                <label className="form-check-label" for="flexCheckChecked">
+                  Airplane
                 </label>
               </div>
-            </div> */}
+              <div className="form-check m-2">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="Train"
+                  id="flexCheckChecked"
+                  onChange={handleCheck}
+                  checked={check.includes("Train")}
+                />
+                <label className="form-check-label" for="flexCheckChecked">
+                  Train
+                </label>
+              </div>
+              <div className="form-check m-2">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="Bus"
+                  id="flexCheckChecked"
+                  onChange={handleCheck}
+                  checked={check.includes("Bus")}
+                />
+                <label className="form-check-label" for="flexCheckChecked">
+                  Bus
+                </label>
+              </div>
+              <div className="form-check m-2">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value="Yoat"
+                  id="flexCheckChecked"
+                  onChange={handleCheck}
+                  checked={check.includes("Yoat")}
+                />
+                <label className="form-check-label" for="flexCheckChecked">
+                  Yoat
+                </label>
+              </div>
+            </div>
           </div>
           <div className="col-9">
             {data.length === 0 ? (
@@ -173,7 +232,7 @@ const Tours = () => {
                 </div>
               </div>
             ) : (
-              findInfo
+              searchAll
                 .slice(pagesVisited, pagesVisited + toursPerPage)
                 .map((val, index) => {
                   const pic = JSON.parse(val.images);
