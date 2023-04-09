@@ -13,11 +13,10 @@ const Tours = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const toursPerPage = 5;
   const pagesVisited = pageNumber * toursPerPage;
-
+  const transportTypes = ["Airplane", "Train", "Bus", "Yoat"];
   const displayAllTour = async () => {
     axios.get(`${ExportURL.URL_API}/tour/GetAll`).then((res) => {
       setData(res.data);
-      // console.log(res);
     });
   };
 
@@ -29,14 +28,11 @@ const Tours = () => {
 
   const searchAll = useMemo(() => {
     let filteredData = [...data];
-    // console.log(filteredData);
     if (search !== "") {
       filteredData = filteredData.filter(
         (item) =>
           Object.values(item).some((value) =>
-            String(value)
-              .toLowerCase()
-              .includes(search.toLowerCase())
+            String(value).toLowerCase().includes(search.toLowerCase())
           ) || item.PricePerson === search * 1
       ); //Object.values(item): lấy giá trị từ object chuyển thành mảng phù hợp includes
     }
@@ -60,10 +56,8 @@ const Tours = () => {
     const isChecked = e.target.checked;
     if (isChecked) {
       checkTransport([...check, transport]);
-      // console.log(transport);
     } else {
       checkTransport(check.filter((item) => item !== transport));
-      // console.log(transport);
     }
   };
   const clearFilter = (e) => {
@@ -79,7 +73,7 @@ const Tours = () => {
   const handleInputChange = (event) => {
     searchTour(event.target.value);
   };
-  
+
   return (
     <>
       <div className="container mt-3 mb-6">
@@ -146,58 +140,21 @@ const Tours = () => {
                 Clear Filters
               </button>
               {/* <!-- Checked checkbox --> */}
-              <div className="form-check m-2">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Airplane"
-                  id="flexCheckChecked"
-                  onChange={handleCheck}
-                  checked={check.includes("Airplane")}
-                />
-                <label className="form-check-label" for="flexCheckChecked">
-                  Airplane
-                </label>
-              </div>
-              <div className="form-check m-2">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Train"
-                  id="flexCheckChecked"
-                  onChange={handleCheck}
-                  checked={check.includes("Train")}
-                />
-                <label className="form-check-label" for="flexCheckChecked">
-                  Train
-                </label>
-              </div>
-              <div className="form-check m-2">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Bus"
-                  id="flexCheckChecked"
-                  onChange={handleCheck}
-                  checked={check.includes("Bus")}
-                />
-                <label className="form-check-label" for="flexCheckChecked">
-                  Bus
-                </label>
-              </div>
-              <div className="form-check m-2">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Yoat"
-                  id="flexCheckChecked"
-                  onChange={handleCheck}
-                  checked={check.includes("Yoat")}
-                />
-                <label className="form-check-label" for="flexCheckChecked">
-                  Yoat
-                </label>
-              </div>
+              {transportTypes.map((type) => (
+                <div className="form-check m-2">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value={type}
+                    id={type}
+                    onChange={handleCheck}
+                    checked={check.includes(type)}
+                  />
+                  <label className="form-check-label" htmlFor={type}>
+                    {type}
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
           <div className="col-9">
